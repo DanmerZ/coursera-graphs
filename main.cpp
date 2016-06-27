@@ -333,7 +333,7 @@ public:
 
         std::priority_queue< std::pair<weight_type, int>,
                 std::vector<std::pair<weight_type, int> >,
-                std::greater<std::pair<weight_type, int> > > vertex_queue; // max-heap
+                std::greater<std::pair<weight_type, int> > > vertex_queue; // min-heap
         vertex_queue.push(std::make_pair(min_distance[source], source)); // put the start vertice to queue
 
         // iterate until queue is empty
@@ -351,12 +351,12 @@ public:
             {
                 int v = neighbor.vertex;
                 weight_type weight = neighbor.weight;
-                weight_type distance_through_u = dist + weight;
+                weight_type distance_through_u = dist + weight; // calcualate the cost
                 if (distance_through_u < min_distance[v])
                 {
                     min_distance[v] = distance_through_u;
                     previous[v] = u;
-                    vertex_queue.push(std::make_pair(min_distance[v], v));
+                    vertex_queue.push(std::make_pair(min_distance[v], v)); // push on top of heap the most "effective" vertex
                 }
             }
         }
